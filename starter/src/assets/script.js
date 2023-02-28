@@ -80,7 +80,10 @@ const decreaseQuantity = (productId) => {
   - removeProductFromCart should remove the product from the cart
 */
 const removeProductFromCart = (productId) => {
-  cart = [...cart.filter(p => p.productId !== productId)]
+  cart = [...cart.filter(p => {
+    if(p.productId === productId) p.quantity = 0;
+    return p.productId !== productId
+  })]
 }
 
 /* Create a function named cartTotal that has no parameters
@@ -103,7 +106,12 @@ const emptyCart = () => {
   - pay will return a negative number if there is a remaining balance
   - pay will return a positive number if money should be returned to customer
 */
-const pay = (amount) => amount - cartTotal()
+let totalPaid = 0
+
+const pay = (amount) => {
+  totalPaid += amount;
+  return totalPaid - cartTotal()
+}
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
 
